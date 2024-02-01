@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ResturantCard,{WithRestaurantPromoted} from "./ResturantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useFetchData from "../utils/useFetchData";
 import { RES_LIST_API_URL } from "../utils/constants";
+import userContext from "../utils/userContext";
 
 
 const Body = () => {
     const [filterData, setFilterData] = useState([]);
     const [searchText, setSearchText] = useState("");
+    const {loggedInUser,setUserName}=useContext(userContext)
     const data=useFetchData(RES_LIST_API_URL);
     const restrauntLists=data[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
 
@@ -47,6 +49,11 @@ const Body = () => {
                 <button className="py-2 px-4 border-2 ml-4 rounded-lg border-blue-400" onClick={topRatedRestaurant}>
                     Top Rated Restaurant
                 </button>
+                <input 
+                 className="px-4 py-4 border-2 rounded-lg border-blue-400 text-xl"
+                value={loggedInUser}
+                onChange={(e)=>setUserName(e.target.value)}
+                />
             </div>
             <div className="flex content-between flex-wrap mt-6 ml-4 mr-4">
                 {filterData.map(el =>

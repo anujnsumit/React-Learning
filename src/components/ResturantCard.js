@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import { CARD_IMG_URL } from "../utils/constants";
+import userContext from "../utils/userContext";
 
 const ResturantCard=({resData})=>{
+   const {loggedInUser} =useContext(userContext)
     const {name,cuisines,avgRating,costForTwo,cloudinaryImageId}=resData?.info;
     return(
     <div className="w-40 min-h-80 mx-8 my-8 shadow-xl rounded-lg hover:border-2 border-gray-200">
@@ -10,6 +13,7 @@ const ResturantCard=({resData})=>{
        <div className="card-items">
            <p>Rating {avgRating}</p>
        </div>
+       <p>{loggedInUser}</p>
        <p>{costForTwo}</p>
     </div>
 )

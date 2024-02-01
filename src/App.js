@@ -1,15 +1,25 @@
-import React, { Suspense, lazy } from "react";
+import React, { Suspense, lazy, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import Header from "./components/Header";
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import PageNotFound from "./components/PageNotFound";
+import UserContext from "./utils/userContext";
 
-const Applayout = () => (
-    <div className="app">
+const Applayout = () => {
+    const [userName,setUserName]=useState("");
+
+    useEffect(()=>{
+    setUserName("sumit")
+    },[])
+   return(
+    <UserContext.Provider value={{loggedInUser:userName,setUserName}}>
+   <div className="app">
         <Header />
-        <Outlet />
+        <Outlet/>
     </div>
-)
+    </UserContext.Provider>
+    )
+}
 
 const root = createRoot(document.getElementById("root"));
 
