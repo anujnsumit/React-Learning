@@ -1,14 +1,12 @@
 import { CARD_IMG_URL } from "../utils/constants";
 
-
 const ResturantCard=({resData})=>{
-    console.log(resData,'resId')
     const {name,cuisines,avgRating,costForTwo,cloudinaryImageId}=resData?.info;
     return(
-    <div className="res-card">
-       <img className="recipe-img" alt='biryani image' src={`${CARD_IMG_URL}${cloudinaryImageId}`}/>
+    <div className="w-40 min-h-80 mx-8 my-8 shadow-xl rounded-lg hover:border-2 border-gray-200">
+       <img className="rounded-md " alt='biryani image' src={`${CARD_IMG_URL}${cloudinaryImageId}`}/>
        <h3>{name}</h3>
-       <h4 className="cuisine-text">{cuisines.join(",")}</h4>
+       <h4 className="text-wrap overflow-hidden text-ellipsis">{cuisines.join(",")}</h4>
        <div className="card-items">
            <p>Rating {avgRating}</p>
        </div>
@@ -18,8 +16,9 @@ const ResturantCard=({resData})=>{
 }
 
 export const WithRestaurantPromoted=(Component)=>(props)=>{
-    console.log(Component,props,'props')
-return <div><label>promoted</label><Component {...props}/></div>
+return <div className="relative">
+    <label className="p-2 m-2 absolute  bg-black text-white rounded-md">promoted</label><Component {...props}/>
+    </div>
 };
 
 export default ResturantCard;

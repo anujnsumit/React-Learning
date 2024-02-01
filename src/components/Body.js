@@ -2,63 +2,57 @@ import { useEffect, useState } from "react";
 import ResturantCard,{WithRestaurantPromoted} from "./ResturantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import useFetchData from "../utils/useFetchData";
+import { RES_LIST_API_URL } from "../utils/constants";
 
 
 const Body = () => {
-    const [data, setData] = useState([]);
     const [filterData, setFilterData] = useState([]);
     const [searchText, setSearchText] = useState("");
+    const data=useFetchData(RES_LIST_API_URL);
+    const restrauntLists=data[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
 
     const topRatedRestaurant = () => {
-        const result = data.filter(el => el.info.avgRating > 4.2)
+        const result = restrauntLists.filter(el => el.info.avgRating > 4.2)
         setFilterData(result);
     }
   const RestaurantPromotedCard=WithRestaurantPromoted(ResturantCard)
-    useEffect(() => {
-        fetchData();
-    }, [])
+   
+ 
+ useEffect(()=>{
+    if(Array.isArray(restrauntLists)&& restrauntLists.length)
+    setFilterData(restrauntLists)
+},[restrauntLists])
 
-    const fetchData = async () => {
-    try {
-        const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9715987&lng=77.5945627&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
-        const res = await data.json();
-        setData(res.data.cards[1].card.card.gridElements.infoWithStyle.restaurants);
-        setFilterData(res.data.cards[1].card.card.gridElements.infoWithStyle.restaurants)
-    } catch (error) {
-        console.log(error)
-    }
-    }
     return (
         <>
-        {Array.isArray(data) && data.length==0 ?
+        {Array.isArray(restrauntLists) && restrauntLists.length==0 ?
           <Shimmer/>:
-        <div className="body">
-            <div className="search">
+        <div>
+            <div className="justify-center flex m-4">
                 <input
-                    className="inputtext"
+                    className="px-4 py-4 border-2 rounded-lg border-blue-400 text-xl"
                     type="text"
                     placeholder="search"
                     value={searchText}
                     onChange={({ target: { value } }) => { setSearchText(value) }} />
-                <button className="searchbtn" onClick={() => {
-                    const filterdResCard = data.filter((ele) =>
+                <button className="ml-4 border-2 border-grey-400 rounded-lg bg-gray-400 text-white px-6 py-4" onClick={() => {
+                    const filterdResCard = restrauntLists.filter((ele) =>
                         ele.info.name.toLowerCase().includes(searchText.toLowerCase())
                     );
                     setFilterData(filterdResCard);
                     setSearchText("")
                 }
                 }>search</button>
-            </div>
-            <div className="filter">
-                <button className="filter-btn" onClick={topRatedRestaurant}>
+                <button className="py-2 px-4 border-2 ml-4 rounded-lg border-blue-400" onClick={topRatedRestaurant}>
                     Top Rated Restaurant
                 </button>
             </div>
-            <div className="res-container">
+            <div className="flex content-between flex-wrap mt-6 ml-4 mr-4">
                 {filterData.map(el =>
                 <Link to={`/resturant-details/${el.info.id}`} key={el.info.id}>
                   {el.info?.veg ?<RestaurantPromotedCard resData={el}/>: <ResturantCard resData={el}/>}
-                    </Link>
+                </Link>
                 )
                 }
             </div>
