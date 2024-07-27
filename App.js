@@ -1,13 +1,11 @@
-const Heading=React.createElement("div",{id:"parent"},
-[React.createElement("div",{id:"child"},
-[React.createElement("h1",{},"hello first child"),
-React.createElement("h2",{},"second child")]),
-React.createElement("div",{id:"child2"},
-[React.createElement("h1",{},"hello first child2"),
-React.createElement("h2",{},"second child2")])
-]);
+import {createRoot} from 'react-dom/client';
 
-const root=ReactDOM.createRoot(document.getElementById("root"));
+const Heading=<h1>Hello</h1>;
+
+const root=createRoot(document.getElementById('root'));
+
+root.render(Heading)
 
 
-root.render(Heading);
+
+
