@@ -1,3 +1,77 @@
-#parent{
-    background-color: red;
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    min-height: 100vh;
+    margin: 0 auto;
+}
+
+.logo-container>img{
+    height: 120px;
+    width: auto;
+}
+.body{
+    margin-top: 150px;
+}
+.header-container{
+    align-items: center;
+    justify-content: space-around;
+    display: flex;
+    box-shadow: 0px 2px 3px 0px rgba(25, 25, 25, 0.6);
+    border-radius: 4px;
+    background-color: #fff8f8;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+}
+.nav-item{
+    display: flex;
+}
+
+.nav-item li{
+    list-style: none;
+    padding: 0px 20px;
+    border-radius: 3px;
+}
+
+.nav-item li a{
+    text-decoration: none;
+    color: #000000;
+}
+
+.nav-item li a:hover{
+    color: #d16666;
+    border-radius: 3px;
+}
+
+.card-container{
+    border-radius: 5px;
+    max-width: 200px;
+    min-height: 250px;
+    margin:40px 0px 0px 30px;
+    box-shadow:1px 1px 4px 3px #c0b6b6b3;
+}
+.res-container{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.card-container:hover{
+    border: 1px solid grey;
+    cursor: pointer;
+}
+
+.footer-container{
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: #000033;
+        color: white;
+        text-align: center;
 }
