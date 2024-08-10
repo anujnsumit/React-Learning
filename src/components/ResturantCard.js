@@ -18,7 +18,12 @@ const ResCard = () => {
     return (
         <>
         <div className="btn">
-        <input type="text" placeholder="search list" value={searchValue} onChange={filterResturant}/>
+        <input 
+        type="text" 
+        placeholder="search list" 
+        value={searchValue} 
+        onChange={filterResturant}
+        className="srch-box"/>
         <button onClick={getTopRatedCard}>Top Rated</button>
         </div>
         <div className="container-main">
