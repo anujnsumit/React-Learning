@@ -1,12 +1,39 @@
-const ResCard=()=>{
-    return(
-        <div className="card-container">
-            <img src="https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" width="200px"/>
-           <h3>Meghna Food</h3>
-           <h4>Biryani,North Indian,Asia</h4>
-           <h4>4.4 stars</h4>
-           <h4>38 mintues</h4>
+import { useState } from "react";
+import { IMAGE_URL } from "../utils/constant";
+import { useFetchData } from "../utils/useFetch";
+
+const ResCard = () => {
+    const [resList,setResList,filterTopRated] = useFetchData();
+    const[searchValue,setSearchValue]=useState("");
+
+    const getTopRatedCard=()=>{
+        setResList(filterTopRated.filter(el=>el.info.avgRating>4.4))
+    }
+
+    const filterResturant=(e)=>{
+        setSearchValue(e.target.value);
+        setResList(filterTopRated.filter(el=>el.info.name.toLowerCase().includes(e.target.value.toLowerCase())));
+    }
+   
+    return (
+        <>
+        <div className="btn">
+        <input type="text" placeholder="search list" value={searchValue} onChange={filterResturant}/>
+        <button onClick={getTopRatedCard}>Top Rated</button>
         </div>
+        <div className="container-main">
+            {resList.map(el =>
+                <div className="card-container">
+                    <div className="card-list">
+                        <img src={`${IMAGE_URL}${el.info.cloudinaryImageId}`} width="350px" height="200px" />
+                        <h3>{el.info.name}</h3>
+                        <h4>{el.info.cuisines.join(",")}</h4>
+                        <h4>{el.info.avgRating} stars</h4>
+                        <h4>{el.info.sla.slaString}</h4>
+                    </div>
+                </div>)}
+                </div>
+        </>
     )
 }
 

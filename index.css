@@ -50,15 +50,35 @@ body{
 
 .card-container{
     border-radius: 5px;
-    max-width: 200px;
-    min-height: 250px;
+    max-width: 350px;
+    min-height: 350px;
     margin:40px 0px 0px 30px;
     box-shadow:1px 1px 4px 3px #c0b6b6b3;
 }
-.res-container{
-    display: flex;
-    justify-content: space-evenly;
+.card-container.card-list img,h3,h4{
+    margin: 10px;
+}
+.container-main{
+    justify-content: center;
     flex-wrap: wrap;
+    display: flex;
+}
+.btn{
+    text-align: center;
+}
+.btn button{
+    border: 2px solid black;
+    padding: 5px 15px;
+    background: chocolate;
+    color: #fff;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.btn button:hover{
+    background: rgb(92, 50, 20);
+    color: #fff;
 }
 
 .card-container:hover{
